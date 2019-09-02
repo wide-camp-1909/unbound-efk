@@ -65,4 +65,4 @@ spec:
       volumes:
         - name: fluentd-conf
           configMap:
-            name: {{ .Release.Name }}-fluentd-config
+            name: {{ .Release.Name }}-fluentd-configmap

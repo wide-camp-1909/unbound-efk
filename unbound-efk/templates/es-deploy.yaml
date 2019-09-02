@@ -27,6 +27,13 @@ spec:
         app: elasticsearch
 {{ include "unbound-efk.labels" . | indent 8 }}
     spec:
+      initContainers:
+        - name: change-pv-permission
+          image: {{ .Values.elasticsearch.image.repository }}:{{ .Values.elasticsearch.image.tag }}
+          command: ["chown", "-R", "1000:1000", "/usr/share/elasticsearch/data"]
+          volumeMounts:
+            - name: esdata-pv
+              mountPath: /usr/share/elasticsearch/data
       containers:
         - name: elasticsearch
           image: {{ .Values.elasticsearch.image.repository }}:{{ .Values.elasticsearch.image.tag }}
@@ -71,8 +78,6 @@ spec:
           volumeMounts:
             - name: esdata-pv
               mountPath: /usr/share/elasticsearch/data
-            - name: esconfig-pv
-              mountPath: /usr/share/elasticsearch/config
       volumes:
         - name: esdata-pv
           persistentVolumeClaim:
@@ -80,3 +85,4 @@ spec:
         - name: esconfig-pv
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-esconfig-pvc
+
