@@ -28,9 +28,22 @@ spec:
 {{ include "unbound-efk.labels" . | indent 8 }}
     spec:
       containers:
-        - name: unbound
+        - name: kibana
           image: {{ .Values.kibana.image.repository }}:{{ .Values.kibanna.image.tag }}
           imagePullPolicy: {{ .Values.kibana.image.pullPolicy }}
+          env:
+            - name: ELASTICSEARCH_HOSTS
+              value: "http://elasticsearch:9200"
+            - name: SERVER_MAXPAYLOADBYTES
+              value: 4194304
+            - name: LOGGING_DEST
+              value: "stdout"
+            - name: LOGGING_QUIET
+              value: "false"
+            - name: SERVER_HOST
+              value: "0.0.0.0"
+            - name: SERVER_PORT
+              value: 5601
           ports:
             - name: http
               containerPort: 5601

@@ -31,6 +31,23 @@ spec:
         - name: elasticsearch
           image: {{ .Values.elasticsearch.image.repository }}:{{ .Values.elasticsearch.image.tag }}
           imagePullPolicy: {{ .Values.elasticsearch.image.pullPolicy }}
+          env:
+            - name: ES_JAVA_OPTS
+              value: "-Xms1g -Xmx1g"
+            - name: bootstrap.memory_lock
+              value: "true"
+            - name: discovery.type
+              value: "single-node"
+            - name: indices.query.bool.max_clause_count
+              value: 8192
+            - name: search.max_buckets
+              value: 100000
+            - name: action.destructive_requires_name
+              value: "true"
+            - name: network.host
+              value: 0.0.0.0
+            - name: http.port
+              value: 9200
           ports:
             - name: elasticseach
               containerPort: 9200
