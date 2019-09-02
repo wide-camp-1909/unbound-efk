@@ -14,6 +14,7 @@ RUN apk add --no-cache --update --virtual .build-deps \
       geoip geoip-dev automake autoconf libtool \
       python3 \
  && pip3 install geoip2 dnspython \
+ && gem install fluent-plugin-http-heartbeat \
  && gem install fluent-plugin-elasticsearch \
  && gem install fluent-plugin-geoip \
  && gem sources --clear-all \
