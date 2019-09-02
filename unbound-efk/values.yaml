@@ -9,10 +9,10 @@ elasticsearch:
   persistence:
     data:
       size: 20Gi
-      storageClassName: es
+      storageClassName: esdata
     config:
       size: 2Gi
-      storageClassName: es
+      storageClassName: esconfig
 
 fluentd:
   image:
