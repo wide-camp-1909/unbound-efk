@@ -19,9 +19,11 @@ fluentd:
     repository: wide-camp-1909/ubuntu-efk-fluentd
     tag: "latest"
   pullPolicy: IfNotPresent
+  listen: 203.178.158.40
 
 kibana:
   image:
     repository: kibana
     tag: "7.3.1"
   pullPolicy: IfNotPresent
+  listen: 203.178.158.41

@@ -34,25 +34,25 @@ spec:
       port: 514
       protocol: UDP
   externalIPs:
-    - 203.178.158.10
+    - {{ .Values.fluentd.listen }}
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-fluentd-service
+  name: {{ .Release.Name }}-kibana-service
   labels:
 {{ include "unbound-efk.labels" . | indent 4 }}
 spec:
   type: ClusterIP
   selector:
-    app: fluentd
+    app: kibana
 {{ include "unbound-efk.labels" . | indent 4 }}
   ports:
-    - name: syslog
-      targetPort: 5140
-      port: 514
-      protocol: UDP
+    - name: http
+      targetPort: 5601
+      port: 5601
+      protocol: TCP
   externalIPs:
-    - 203.178.158.10
+    - {{ .Values.kibana.listen }}
