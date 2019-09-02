@@ -3,10 +3,10 @@ kind: PodDisruptionBudget
 metadata:
   name: {{ .Release.Name }}-disruptionbudget
   labels:
-{{ include "camp-dns.labels" . | indent 4 }}
+{{ include "unbound-efk.labels" . | indent 4 }}
 spec:
   minAvailable: 1
   selector:
     matchLabels:
       app: unbound
-{{ include "camp-dns.labels" . | indent 6 }}
+{{ include "unbound-efk.labels" . | indent 6 }}
