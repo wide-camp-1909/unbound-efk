@@ -32,7 +32,6 @@ services:
       - elasticsearch
     volumes:
       - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
-      - ./fluentd/GeoLite2-City.mmdb:/GeoLite2-City.mmdb:ro
 
   kibana:
     image: kibana:7.3.1

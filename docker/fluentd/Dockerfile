@@ -6,8 +6,6 @@ ENV TZ Asia/Tokyo
 
 USER root
 
-COPY geoip.py /geoip.py
-
 RUN apk add --no-cache --update --virtual .build-deps \
       build-base ruby-dev \
  && apk add --no-cache --update \
