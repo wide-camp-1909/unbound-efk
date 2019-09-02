@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    image: elasticsearch:7.3.1
+    expose:
+      - 9200
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - esconfig:/usr/share/elasticsearch/config
+    environment:
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+      - xpack.watcher.enabled=false
+      - xpack.graph.enabled=false
+      - xpack.ml.enabled=false
+      - http.max_content_length=1g
+      - thread_pool.index.queue_size=-1
+      - thread_pool.bulk.queue_size=-1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  fluentd:
+    image: wide-camp-1909/unbound-efk-fluentd:latest
+    build:
+      context: fluentd
+    ports:
+      - "514:514/udp"
+    depends_on:
+      - elasticsearch
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
+
+  kibana:
+    image: kibana:7.3.1
+    ports:
+      - "5601:5601"
+    environment:
+      - "ELASTICSEARCH_URL=http://elasticsearch:9200"
+      - xpack.graph.enabled=false
+      - xpack.security.enabled=false
+      - xpack.ml.enabled=false
+      - elasticsearch.requestTimeout=60000
+    depends_on:
+      - elasticsearch
+
+volumes:
+  esdata:
+  esconfig:
