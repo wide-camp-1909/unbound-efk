@@ -1,16 +1,24 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "unbound-efk.fullname" . }}
+  name: {{ .Release.Name }}-service
   labels:
-{{ include "unbound-efk.labels" . | indent 4 }}
+{{ include "camp-dns.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  type: ClusterIP
   selector:
-    app.kubernetes.io/name: {{ include "unbound-efk.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: unbound
+{{ include "camp-dns.labels" . | indent 4 }}
+  ports:
+    - name: dns-udp
+      targetPort: 53
+      port: 53
+      protocol: UDP
+    - name: dns-tcp
+      targetPort: 53
+      port: 53
+      protocol: TCP
+  externalIPs:
+{{ range .Values.unbound.listen }}
+    - {{ . }}
+{{ end }}

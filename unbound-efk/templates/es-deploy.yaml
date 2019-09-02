@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-elasticsearch-deployment
+  labels:
+{{ include "unbound-efk.labels" . | indent 4 }}
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  creationTimestamp: "2019-08-31T23:23:03Z"
+  generation: 1
+spec:
+  replicas: {{ .Values.unbound.replicaCountMin }}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: elasticsearch
+{{ include "unbound-efk.labels" . | indent 6 }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+          app: elasticsearch
+{{ include "unbound-efk.labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: elasticsearch
+          image: {{ .Values.elasticsearch.image.repository }}:{{ .Values.elasticsearch.image.tag }}
+          imagePullPolicy: {{ .Values.elasticsearch.image.pullPolicy }}
+          ports:
+            - name: elasticseach
+              containerPort: 9200
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: "/"
+              port: 9200
+            initialDelaySeconds: 60
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: "/"
+              port: 9200
+            initialDelaySeconds: 60
+            timeoutSeconds: 2
+            successThreshold: 1
+            failureThreshold: 1
+          volumeMounts:
+            - name: esdata-pv
+              mountPath: /usr/share/elasticsearch/data
+            - name: esconfig-pv
+              mountPath: /usr/share/elasticsearch/config
+      volumes:
+        - name: esdata-pv
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-esdata-pv
+        - name: esconfig-pv
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-esconfig-pv
