@@ -27,7 +27,7 @@ services:
     build:
       context: fluentd
     ports:
-      - "514:5140/tcp"
+      - "514:5140/udp"
     depends_on:
       - elasticsearch
     volumes:
