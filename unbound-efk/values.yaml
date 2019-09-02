@@ -2,8 +2,9 @@ ingress:
   enabled: false
 
 elasticsearch:
-  image: elasticsearch
-  tag: "7.3.1"
+  image:
+    repository: elasticsearch
+    tag: "7.3.1"
   pullPolicy: IfNotPresent
   persistence:
     data:
@@ -14,11 +15,13 @@ elasticsearch:
       storageClassName: es
 
 fluentd:
-  image: wide-camp-1909/ubuntu-efk-fluentd
-  tag: "latest"
+  image:
+    repository: wide-camp-1909/ubuntu-efk-fluentd
+    tag: "latest"
   pullPolicy: IfNotPresent
 
 kibana:
-  image: kibana
-  tag: "7.3.1"
+  image:
+    repository: kibana
+    tag: "7.3.1"
   pullPolicy: IfNotPresent

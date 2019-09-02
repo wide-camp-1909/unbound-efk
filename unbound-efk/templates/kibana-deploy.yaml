@@ -9,7 +9,7 @@ metadata:
   creationTimestamp: "2019-08-31T23:23:03Z"
   generation: 1
 spec:
-  replicas: {{ .Values.unbound.replicaCountMin }}
+  replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: kibana
-          image: {{ .Values.kibana.image.repository }}:{{ .Values.kibanna.image.tag }}
+          image: {{ .Values.kibana.image.repository }}:{{ .Values.kibana.image.tag }}
           imagePullPolicy: {{ .Values.kibana.image.pullPolicy }}
           env:
             - name: ELASTICSEARCH_HOSTS

@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Release.Name }}-esdata-pv
+  name: {{ .Release.Name }}-esdata-pvc
   labels:
 {{ include "unbound-efk.labels" . | indent 4 }}
 spec:
-  storageClassName: {{ .Values.elasticseach.persistence.data.storageClassName }}
+  storageClassName: {{ .Values.elasticsearch.persistence.data.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.elasticseach.persistence.data.size }}
+      storage: {{ .Values.elasticsearch.persistence.data.size }}
 
 ---
 
@@ -21,9 +21,9 @@ metadata:
   labels:
 {{ include "unbound-efk.labels" . | indent 4 }}
 spec:
-  storageClassName: {{ .Values.elasticseach.persistence.config.storageClassName }}
+  storageClassName: {{ .Values.elasticsearch.persistence.config.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.elasticseach.persistence.config.size }}
+      storage: {{ .Values.elasticsearch.persistence.config.size }}
