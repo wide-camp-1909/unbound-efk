@@ -6,10 +6,14 @@ ENV TZ Asia/Tokyo
 
 USER root
 
+COPY geoip.py /geoip.py
+
 RUN apk add --no-cache --update --virtual .build-deps \
       build-base ruby-dev \
  && apk add --no-cache --update \
       geoip geoip-dev automake autoconf libtool \
+      python3 \
+ && pip3 install geoip2 dnspython \
  && gem install fluent-plugin-elasticsearch \
  && gem install fluent-plugin-geoip \
  && gem sources --clear-all \
