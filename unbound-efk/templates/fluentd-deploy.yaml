@@ -46,7 +46,7 @@ spec:
             httpGet:
               path: "/"
               port: 8080
-            initialDelaySeconds: 5
+            initialDelaySeconds: 120
             timeoutSeconds: 2
             successThreshold: 1
             failureThreshold: 3
@@ -54,7 +54,7 @@ spec:
             httpGet:
               path: "/"
               port: 8080
-            initialDelaySeconds: 5
+            initialDelaySeconds: 120
             timeoutSeconds: 2
             successThreshold: 1
             failureThreshold: 1
