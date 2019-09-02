@@ -49,7 +49,7 @@ spec:
             - name: http.port
               value: 9200
           ports:
-            - name: elasticseach
+            - name: elasticsearch
               containerPort: 9200
               protocol: TCP
           readinessProbe:

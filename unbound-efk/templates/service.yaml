@@ -7,10 +7,10 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: elasticseach
+    app: elasticsearch
 {{ include "unbound-efk.labels" . | indent 4 }}
   ports:
-    - name: elasticseach
+    - name: elasticsearch
       targetPort: 9200
       port: 9200
       protocol: TCP
