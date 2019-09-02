@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: {{ .Release.Name }}-kibana-deployment
   labels:
-{{ include "camp-dns.labels" . | indent 4 }}
+{{ include "unbound-efk.labels" . | indent 4 }}
   annotations:
     deployment.kubernetes.io/revision: "1"
   creationTimestamp: "2019-08-31T23:23:03Z"
@@ -13,8 +13,8 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: unbound
-{{ include "camp-dns.labels" . | indent 6 }}
+      app: kibana
+{{ include "unbound-efk.labels" . | indent 6 }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -24,56 +24,30 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: unbound
-{{ include "camp-dns.labels" . | indent 8 }}
+        app: kibana
+{{ include "unbound-efk.labels" . | indent 8 }}
     spec:
       containers:
         - name: unbound
-          image: {{ .Values.unbound.image.repository }}:{{ .Values.unbound.image.tag }}
-          imagePullPolicy: {{ .Values.unbound.image.pullPolicy }}
+          image: {{ .Values.kibana.image.repository }}:{{ .Values.kibanna.image.tag }}
+          imagePullPolicy: {{ .Values.kibana.image.pullPolicy }}
           ports:
-            - name: dns-udp
-              containerPort: 53
-              protocol: UDP
-            - name: dns-tcp
-              containerPort: 53
+            - name: http
+              containerPort: 5601
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: "/healthz"
-              port: 8080
+              path: "/"
+              port: 5601
             initialDelaySeconds: 5
             timeoutSeconds: 2
             successThreshold: 1
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: "/healthz"
-              port: 8080
+              path: "/"
+              port: 5601
             initialDelaySeconds: 5
             timeoutSeconds: 2
             successThreshold: 1
             failureThreshold: 1
-          volumeMounts:
-            - name: unbound-conf
-              mountPath: "/opt/unbound/etc/unbound/"
-              readOnly: true
-            - name: rsyslogd-conf
-              mountPath: "/opt/rsyslogd/etc/"
-              readOnly: true
-        - name: healthz
-          image: googlecontainer/exechealthz:1.2
-          imagePullPolicy: IfNotPresent
-          args:
-            - "-cmd=nslookup wide.ad.jp 127.0.0.1:53 > /dev/null"
-          ports:
-            - name: healthz
-              containerPort: 8080
-              protocol: TCP
-      volumes:
-        - name: unbound-conf
-          configMap:
-            name: {{ .Release.Name }}-unbound-configmap
-        - name: rsyslogd-conf
-          configMap:
-            name: {{ .Release.Name }}-rsyslogd-configmap
