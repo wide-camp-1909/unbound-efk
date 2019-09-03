@@ -40,7 +40,7 @@ spec:
           imagePullPolicy: {{ .Values.elasticsearch.image.pullPolicy }}
           env:
             - name: ES_JAVA_OPTS
-              value: "-Xms2g -Xmx2g"
+              value: "-Xms{{ .Values.elasticsearch.memory }} -Xmx{{ .Values.elasticsearch.memory }}"
             - name: bootstrap.memory_lock
               value: "true"
             - name: discovery.type

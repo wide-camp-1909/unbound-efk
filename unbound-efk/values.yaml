@@ -6,6 +6,7 @@ elasticsearch:
     repository: elasticsearch
     tag: "7.3.1"
   pullPolicy: IfNotPresent
+  memory: 32g
   persistence:
     data:
       size: 200Gi
@@ -13,7 +14,8 @@ elasticsearch:
 
 fluentd:
   image:
-    repository: wide-camp-1909/ubuntu-efk-fluentd
+    # repository: wide-camp-1909/ubuntu-efk-fluentd
+    repository: 203.178.158.5:30500/-camp-1909/ubuntu-efk-fluentd
     tag: "latest"
   pullPolicy: IfNotPresent
   listen: 203.178.158.40
