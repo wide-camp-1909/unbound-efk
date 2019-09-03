@@ -32,6 +32,11 @@ data:
         @type stdout
       </filter>
 
+      <filter unbound.**>
+        @type grep
+        exclude1 client ^127.0.0.1$
+      </filter>
+
       <match unbound.**>
         @type copy
         <store>
