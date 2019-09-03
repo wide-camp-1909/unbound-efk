@@ -5,7 +5,7 @@ elasticsearch:
   image:
     repository: elasticsearch
     tag: "7.3.1"
-  pullPolicy: IfNotPresent
+    pullPolicy: IfNotPresent
   memory: 32g
   persistence:
     data:
@@ -17,12 +17,12 @@ fluentd:
     # repository: wide-camp-1909/unbound-efk-fluentd
     repository: 203.178.158.5:30500/wide-camp-1909/unbound-efk-fluentd
     tag: "latest"
-  pullPolicy: IfNotPresent
+    pullPolicy: IfNotPresent
   listen: 203.178.158.40
 
 kibana:
   image:
     repository: kibana
     tag: "7.3.1"
-  pullPolicy: IfNotPresent
+    pullPolicy: IfNotPresent
   listen: 203.178.158.41
