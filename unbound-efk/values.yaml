@@ -10,7 +10,7 @@ elasticsearch:
   persistence:
     data:
       size: 200Gi
-      storageClassName: rook-ceph-block
+      storageClassName: rook-ceph-block-retain
 
 fluentd:
   image:
