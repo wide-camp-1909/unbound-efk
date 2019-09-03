@@ -40,7 +40,7 @@ spec:
           imagePullPolicy: {{ .Values.elasticsearch.image.pullPolicy }}
           env:
             - name: ES_JAVA_OPTS
-              value: "-Xms1g -Xmx1g"
+              value: "-Xms2g -Xmx2g"
             - name: bootstrap.memory_lock
               value: "true"
             - name: discovery.type
@@ -66,7 +66,7 @@ spec:
             initialDelaySeconds: 180
             timeoutSeconds: 2
             successThreshold: 1
-            failureThreshold: 3
+            failureThreshold: 1
           livenessProbe:
             httpGet:
               path: "/"
@@ -74,7 +74,7 @@ spec:
             initialDelaySeconds: 180
             timeoutSeconds: 2
             successThreshold: 1
-            failureThreshold: 1
+            failureThreshold: 3
           volumeMounts:
             - name: esdata-pv
               mountPath: /usr/share/elasticsearch/data
