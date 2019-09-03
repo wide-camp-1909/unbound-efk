@@ -8,6 +8,7 @@ spec:
   storageClassName: {{ .Values.elasticsearch.persistence.data.storageClassName }}
   accessModes:
     - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
       storage: {{ .Values.elasticsearch.persistence.data.size }}
