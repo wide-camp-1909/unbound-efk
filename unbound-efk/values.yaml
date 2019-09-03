@@ -15,7 +15,7 @@ elasticsearch:
 fluentd:
   image:
     # repository: wide-camp-1909/ubuntu-efk-fluentd
-    repository: 203.178.158.5:30500/-camp-1909/ubuntu-efk-fluentd
+    repository: 203.178.158.5:30500/wide-camp-1909/ubuntu-efk-fluentd
     tag: "latest"
   pullPolicy: IfNotPresent
   listen: 203.178.158.40
