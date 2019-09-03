@@ -28,8 +28,8 @@ services:
       context: fluentd
     ports:
       - "514:5140/udp"
-    depends_on:
-      - elasticsearch
+    # depends_on:
+    #   - elasticsearch
     volumes:
       - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
 

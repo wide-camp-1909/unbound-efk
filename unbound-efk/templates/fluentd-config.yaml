@@ -29,12 +29,11 @@ data:
 
     <label @unbound>
       <filter unbound.**>
-        @type stdout
-      </filter>
-
-      <filter unbound.**>
         @type grep
-        exclude1 client ^127.0.0.1$
+        <exclude>
+          key client
+          pattern ^127.0.0.1$
+        </exclude>
       </filter>
 
       <match unbound.**>
