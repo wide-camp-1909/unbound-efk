@@ -82,7 +82,4 @@ spec:
         - name: esdata-pv
           persistentVolumeClaim:
             claimName: {{ .Release.Name }}-esdata-pvc
-        - name: esconfig-pv
-          persistentVolumeClaim:
-            claimName: {{ .Release.Name }}-esconfig-pvc
 
