@@ -8,6 +8,12 @@ metadata:
 data:
   fluent.conf: |-
     <source>
+      @type http_heartbeat
+      bind 0.0.0.0
+      port 8080
+    </source>
+
+    <source>
       @type syslog
       @label @unbound
       bind 0.0.0.0
