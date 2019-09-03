@@ -27,6 +27,8 @@ spec:
         app: fluentd
 {{ include "unbound-efk.labels" . | indent 8 }}
     spec:
+      imagePullSecrets:
+        - name: {{ .Values.fluentd.image.pullSecret }}
       initContainers:
         - name: wait-for-es
           image: mi2428/wait-for-it:latest

@@ -18,6 +18,7 @@ fluentd:
     repository: 203.178.158.5:30500/wide-camp-1909/unbound-efk-fluentd
     tag: "latest"
     pullPolicy: IfNotPresent
+    pullSecret: camp-reg
   listen: 203.178.158.40
 
 kibana:
