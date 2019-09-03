@@ -8,11 +8,8 @@ elasticsearch:
   pullPolicy: IfNotPresent
   persistence:
     data:
-      size: 20Gi
-      storageClassName: esdata
-    config:
-      size: 2Gi
-      storageClassName: esconfig
+      size: 200Gi
+      storageClassName: rook-ceph-block
 
 fluentd:
   image:

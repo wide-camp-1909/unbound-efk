@@ -11,19 +11,3 @@ spec:
   resources:
     requests:
       storage: {{ .Values.elasticsearch.persistence.data.size }}
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: {{ .Release.Name }}-esconfig-pvc
-  labels:
-{{ include "unbound-efk.labels" . | indent 4 }}
-spec:
-  storageClassName: {{ .Values.elasticsearch.persistence.config.storageClassName }}
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: {{ .Values.elasticsearch.persistence.config.size }}
