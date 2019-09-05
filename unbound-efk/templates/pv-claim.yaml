@@ -5,7 +5,7 @@ metadata:
   labels:
 {{ include "unbound-efk.labels" . | indent 4 }}
 spec:
-  #storageClassName: {{ .Values.elasticsearch.persistence.data.storageClassName }}
+  storageClassName: {{ .Values.elasticsearch.persistence.data.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:

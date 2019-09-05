@@ -3,6 +3,7 @@ kind: PersistentVolume
 metadata:
   name: esdata-pv
 spec:
+  storageClassName: nfs
   capacity:
     storage: 3Ti
   accessModes:

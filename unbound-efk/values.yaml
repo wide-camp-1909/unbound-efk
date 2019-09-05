@@ -11,6 +11,7 @@ elasticsearch:
     data:
       size: 3Ti
       # storageClassName: rook-ceph-block-retain
+      storageClassName: nfs
 
 fluentd:
   image:
