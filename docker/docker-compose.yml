@@ -6,7 +6,8 @@ services:
     expose:
       - 9200
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      # - esdata:/usr/share/elasticsearch/data
+      - /mnt/nfs/es-data:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xms32g -Xmx32g"
       bootstrap.memory_lock: "true"
@@ -27,8 +28,8 @@ services:
       context: fluentd
     ports:
       - "514:5140/udp"
-    # depends_on:
-    #   - elasticsearch
+    depends_on:
+      - elasticsearch
     volumes:
       - ./fluentd/fluent.conf:/fluentd/etc/fluent.conf:ro
 
@@ -46,5 +47,5 @@ services:
     depends_on:
       - elasticsearch
 
-volumes:
-  esdata:
+# volumes:
+#   esdata:
