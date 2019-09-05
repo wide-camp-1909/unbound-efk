@@ -3,11 +3,11 @@ kind: PersistentVolume
 metadata:
   name: esdata-pv
 spec:
-  storageClassName: esdata
   capacity:
-    storage: 20Gi
-  persistentVolumeReclaimPolicy: Recycle
+    storage: 3Ti
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/mnt/kubernetes/pv/esdata-pv"
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    server: 172.16.1.52
+    path: /mnt/array1/dump
