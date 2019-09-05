@@ -9,8 +9,8 @@ elasticsearch:
   memory: 32g
   persistence:
     data:
-      size: 200Gi
-      storageClassName: rook-ceph-block-retain
+      size: 3Ti
+      # storageClassName: rook-ceph-block-retain
 
 fluentd:
   image:
